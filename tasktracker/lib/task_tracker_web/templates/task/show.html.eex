@@ -1,0 +1,54 @@
+<%= if @current_user==nil do %>
+    <%= render TaskTrackerWeb.PageView, "index.html", Map.put(assigns, :action, page_path(@conn, :index)) %>
+<%= else %>
+
+    <p><div class="row">
+        <div class="col-md">
+            <h2 class="text-capitalize"><%= @task.title %></h2>
+        </div>
+    </div></p>
+    <p><div class="row">
+        <div class="col-md-2 font-weight-bold">
+            Assigned To:
+        </div>
+        <div class="col-md-2">
+            <%= if @task.user do %>
+                <%= link @task.user.name, to: user_path(@conn, :show, @task.user) %>
+            <%= else %>
+                Not Assigned
+            <%= end %>
+        </div>
+    </div></p>
+    <p><div class="row">
+        <div class="col-md font-weight-bold">
+            Description:
+        </div>
+    </div></p>
+    <p><div class="row">
+        <div class="col-md">
+            <div class="card">
+                <div class="card-body"><%= @task.description %></div>
+            </div>
+        </div>
+    </div></p>
+    <p><div class="row">
+        <div class="col-md-2 font-weight-bold">
+            Duration:
+        </div>
+        <div class="col-md-2" >
+            <%= @task.duration %>
+        </div>
+        <div class="col-md-2 font-weight-bold" >
+            Status:
+        </div>
+        <div class="col-md-2">
+            <%= if @task.completed, do: "Completed", else: "Incomplete" %>
+        </div>
+    </div></p>
+    <p><div class="row">
+        <div class="col-md">
+            <%= link "Edit", to: task_path(@conn, :edit, @task), class: "btn btn-primary" %>
+            <%= link "Back", to: task_path(@conn, :index) %>
+        </div>
+    </div></p>
+<%= end %>
