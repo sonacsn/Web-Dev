@@ -19,13 +19,14 @@
 ### Tasks
    * **All Tasks** page displays all the task titles, their status, their owner (if any) and option to delete them.
    * All Tasks page can only be accessed if the user is logged in.
-   * Clicking on the task title loads a new page displaying other information like description and duration and an option to edit the task.
+   * Clicking on the task title loads a new page displaying other information like description and duration and an option to edit the task. 
+   * Clicking on the name of the assignee, loads a new page displaying the profile info of the user.
    * New Task can be created where all the fields are required and duration should be in increments of 15.
 
 ### Users
    * **All Users** page displays all the registered user along with their email and an option to delete them.
-   * Only logged in users can see the **All Tasks** button, as only they have access to that page.
-   * Clicking on their email redirects to another page where you can edit the user information.
+   * **Only logged in users can see the All Tasks** button, as only they have access to that page.
+   * Clicking on their email redirects to their profile page where you can edit the user information.
 
         
 
