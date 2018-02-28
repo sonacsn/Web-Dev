@@ -1,0 +1,30 @@
+ <p><div class="row">
+        <div class="col-md">
+            <h2 class="text-capitalize"><%= @user.name %></h2>
+        </div>
+    </div></p>
+    <p><div class="row">
+        <div class="col-md-2 font-weight-bold">
+            Email:
+        </div>
+        <div class="col-md-2">
+            <%= @user.email %>
+        </div>
+    </div></p>
+    <p><div class="row">
+        <div class="col-md-2 font-weight-bold">
+            <%= if @managed_by != nil and @managed_by != [], do: "Managers:", else: "" %>
+        </div>
+        <div class="col-md-2">
+            <%= Enum.map(@managed_by, fn(x) -> x <> ", " end) %>
+        </div>
+    </div></p>
+    <p><div class="row">
+        <div class="col-md">
+            <%= link "Edit", to: user_path(@conn, :edit, @user), class: "btn btn-primary" %>
+            <%= link "All Users", to: user_path(@conn, :index), class: "btn btn-secondary" %>
+            <%= if @current_user != nil do %>
+                <%= link "All Tasks", to: task_path(@conn, :index), class: "btn btn-secondary" %>
+                <%= end %>
+        </div>
+    </div></p>

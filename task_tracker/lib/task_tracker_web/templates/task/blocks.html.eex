@@ -1,0 +1,8 @@
+  <div class="form-group"> 
+   <%= for {id, block} <- @blocks do %>
+      <p>
+        <%= block.start %>
+        <%= block.end %>
+      </p>
+    <%= end %>
+  </div>

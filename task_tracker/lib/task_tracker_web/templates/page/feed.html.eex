@@ -1,0 +1,27 @@
+<%= if @current_user==nil do %>
+    <%= render TaskTrackerWeb.PageView, "index.html", Map.put(assigns, :action, page_path(@conn, :index)) %>
+<%= else %>
+
+<p><h2>Your Staff</h2>
+
+<p><table class="table">
+  <thead>
+    <tr class="thead-dark">
+      <th>Title</th>
+      <th>Status</th>
+      <th>Assigned To</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for task <- @tasks do %>
+    <tr>
+        <td><%= link task.title, to: task_path(@conn, :show, task) %></td>
+        <td><%=  if task.completed, do: "Complete", else: "Incomplete" %></td>
+        <td> <%= task.user.name %> </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+<span><%= link "All Tasks", to: task_path(@conn, :index), class: "btn btn-secondary" %></span>
+<%= end %>

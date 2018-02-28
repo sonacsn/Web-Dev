@@ -1,0 +1,6 @@
+<%= for {id, block} <- @blocks do %>
+  <div class="form-group">
+   Start Time <input type="time" value="<%= block.start %>">
+   End Time <input type="time" value="<%= block.end_time %>">
+  </div>
+<%= end %>

@@ -1,0 +1,36 @@
+<script>
+ window.manage_path = "<%= manage_path(@conn, :index) %>";
+ window.current_user_id = "<%= @current_user.id %>";
+</script>
+<p><h2>All Users</h2>
+
+<p><table class="table">
+  <thead>
+    <tr class="thead-dark">
+      <th>Email</th>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for user <- @users do %>
+    <tr>
+        <td><%= link user.email, to: user_path(@conn, :show, user) %></td>
+      <td><%= user.name %></td>
+
+      <td class="text-right">
+          <span> <button class="manage-button btn btn-secondary"
+                         data-user-id="<%= user.id %>"
+                         data-manage="<%= @manages[user.id] %>">
+              Manage
+          </button></span>
+          <span><%= link "Delete", to: user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New User", to: user_path(@conn, :new), class: "btn btn-primary" %></span>
+<span><%= if @current_user != nil, do: link "All Tasks", to: task_path(@conn, :index), class: "btn btn-secondary" %></span>

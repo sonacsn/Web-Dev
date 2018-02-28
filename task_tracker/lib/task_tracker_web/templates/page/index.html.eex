@@ -1,0 +1,2 @@
+<%= render TaskTrackerWeb.PageView, "form.html", Map.put(assigns, :action, task_path(@conn, :index)) %>
+<span><%= link "Register", to: user_path(@conn, :new) %></span>
