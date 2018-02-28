@@ -1,3 +1,6 @@
+<script>
+    window.time_block_path = "<%= time_block_path(@conn, :index) %>";
+</script>
 <%= form_for @changeset, @action, fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
@@ -17,24 +20,18 @@
     <%= error_tag f, :description %>
   </div>
 
-  <div class="form-group">
-    <%= label f, :duration, class: "control-label" %>
-    <%= text_input f, :duration, class: "form-control" %>
-    <%= error_tag f, :duration %>
-  </div>
-
   <div>
   <%= for {id, block} <- @blocks do %>
       <p>
-        <%= block.start %>
-        <%= block.end_time %>
-        <Button class="btn btn-secondary"> Edit</Button>
-	<Button class="btn btn-danger"> Delete</Button>
+        <b>Start Time: </b><%= block.start %>
+        <b>End Time: </b><%= block.end_time %>
+	<Button class="del-button btn btn-danger" data-task-id="<%= @task.id %>" data-id="<%= id %>">Delete</Button></span>
       </p>
     <%= end %>
   </div>
   <div>
-      <%= render "edit_blocks.html", Map.put(assigns, :block, @blocks)  %>
+     Start Time <input type="time">
+     End Time <input type="time">
   </div>
   <div class="form-group">
     <%= label f, :completed, class: "control-label" %>

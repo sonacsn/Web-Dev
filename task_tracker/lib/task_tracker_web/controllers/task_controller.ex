@@ -49,6 +49,7 @@ defmodule TaskTrackerWeb.TaskController do
     else
 	""
     end
+
     render(conn, "show.html", task: task, started_block: block_id)
   end
 
@@ -60,12 +61,19 @@ defmodule TaskTrackerWeb.TaskController do
     user_id_list = Map.keys(manages_map)
     user_list = Track.get_managee(user_id_list)
     blocks = Track.get_blocks(id)
-    render(conn, "edit.html", task: task, changeset: changeset, user_list: user_list, blocks: blocks )
+    started_block = Track.get_any_started_block(task)
+    block_id = if started_block != nil && started_block != [] do 
+	block = (hd started_block)
+ 	block.id
+    else
+	""
+    end
+    render(conn, "edit.html", task: task, changeset: changeset, user_list: user_list, blocks: blocks, started_block: block_id )
   end
 
   def update(conn, %{"id" => id, "task" => task_params}) do
     task = Track.get_task!(id)
-
+    task_params = Map.put(task_params, "duration", Track.calculate_duration(task))
     case Track.update_task(task, task_params) do
       {:ok, task} ->
         conn
@@ -76,7 +84,8 @@ defmodule TaskTrackerWeb.TaskController do
     manages_map = Track.manages_map_for(user.id)
     user_id_list = Map.keys(manages_map)
     user_list = Track.get_managee(user_id_list)
-        render(conn, "edit.html", task: task, changeset: changeset, user_list: user_list)
+    blocks = Track.get_blocks(id)
+        render(conn, "edit.html", task: task, changeset: changeset, user_list: user_list, blocks: blocks)
     end
   end
 

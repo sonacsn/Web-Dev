@@ -252,7 +252,7 @@ defmodule TaskTracker.Track do
   alias TaskTracker.Track.TimeBlock
 
   def get_blocks(task_id) do
-    Repo.all(from b in TimeBlock, where: b.task_id == ^task_id)
+    Repo.all(from b in TimeBlock, where: b.task_id == ^task_id and b.started == false)
     |> Enum.map(&({&1.id, &1}))
     |> Enum.into(%{})
     # [%TimeBlock{}, ...]
@@ -267,6 +267,11 @@ defmodule TaskTracker.Track do
     |> Repo.preload(:task)
   end
 
+  def calculate_duration(task) do
+    blocks = Repo.all(from b in TimeBlock, where: b.task_id == ^task.id and b.started == false)
+    block_duration = Enum.map(blocks, &(Integer.floor_div(Time.diff(&1.end_time, &1.start),60)))
+    Enum.reduce(block_duration, fn(x, acc) -> x + acc end)
+  end
   @doc """
   Returns the list of timeblocks.
 

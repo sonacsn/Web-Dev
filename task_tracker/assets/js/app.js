@@ -175,6 +175,23 @@ function start_click(ev) {
     }
 }
 
+function del_task(id) {
+  $.ajax(time_block_path + "/" + id, {
+    method: "delete",
+    dataType: "json",
+    contentType: "application/json; charset=UTF-8",
+    data: "",
+    success: "success",
+  });
+}
+
+function del_click(ev){
+    let btn = $(ev.target);
+    let start = btn.data('id');
+    let task_id = btn.data('task-id');
+    
+    del_task(start);
+} 
 function init_manage() {
   if (!$('.manage-button')) {
     return;
@@ -194,6 +211,13 @@ function init_start() {
     update_time_button();
 }
 
+function init_del(){
+  if (!$('.del-button')) {
+    return;
+  }
+  $(".del-button").click(del_click);
+}
 
+$(init_del)
 $(init_start);
 $(init_manage);

@@ -54,5 +54,5 @@
             <%= link "Back", to: task_path(@conn, :index) %>
         </div>
     </div></p>
-    <p> <span><Button class="start-button btn btn-default" data-task-id="<%= @task.id %>" data-id="<%= @started_block %>" data-time="<%= DateTime.utc_now() |> DateTime.to_time |> Time.to_string %>" >Start</Button></span></p>
+    <p> <span><Button type="Submit" class="start-button btn btn-default" data-task-id="<%= @task.id %>" data-id="<%= @started_block %>" data-time="<%= DateTime.utc_now() |> DateTime.to_time |> Time.to_string %>" >Start</Button></span></p>
 <%= end %>
